@@ -1,0 +1,58 @@
+{
+  "name": "cypress-visual-testing-percy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "",
+  "files": [
+    "bin",
+    "src"
+  ],
+  "bin": {
+    "find-cypress-specs": "bin/find.js"
+  },
+  "scripts": {
+    "test:open": "npx percy exec -- cypress open",
+    "test:headless": "npm run clear && percy exec -- cypress run",
+    "clear": "rm -r cypress/videos/* cypress/downloads/* screenshots/* cypress/reports/* || true",
+    "list:spec:names": "npx find-cypress-specs --names",
+    "count:by:tags": "npx find-cypress-specs --tags",
+    "tags:home-page": "percy exec -- cypress run --spec cypress/specs/home-page.cy.ts --env grepTags=@home-page",
+    "lint": "standard",
+    "lint:fix": "standard --fix"
+  },
+  "keywords": [
+    "cypress",
+    "e2e",
+    "ui",
+    "test",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cypress/grep": "^3.1.5",
+    "@percy/cli": "^1.24.2",
+    "@percy/cypress": "^3.1.2",
+    "@testing-library/cypress": "^9.0.0",
+    "@types/mochawesome": "^6.2.1",
+    "cypress": "^12.13.0",
+    "cypress-mochawesome-reporter": "^3.5.0",
+    "cypress-multi-reporters": "^1.6.3",
+    "find-cypress-specs": "^1.34.3",
+    "find-test-names": "^1.28.11",
+    "mocha": "^10.2.0",
+    "mocha-junit-reporter": "^2.2.0",
+    "npm": "^9.6.7",
+    "standard": "^17.1.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.0.4"
+  },
+  "standard": {
+    "globals": [
+      "beforeEach",
+      "describe",
+      "it",
+      "request"
+    ]
+  }
+}

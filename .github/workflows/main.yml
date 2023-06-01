@@ -1,0 +1,92 @@
+name: Cypress Tests
+
+on: 
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  install-dependencies:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Write the cypress.env.json file
+        run: |
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
+
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        if: always()
+        env:
+          SLACK_CHANNEL: qa-visual-testing
+          SLACK_USERNAME: cypress-visual-testing-percy
+          SLACK_ICON: https://user-images.githubusercontent.com/121896069/236320145-28426865-acfa-4a98-b926-34989aea1fc2.png
+          SLACK_COLOR: '#1e81b0'
+          MSG_MINIMAL: event,actions url
+          SLACK_TITLE: 'Iniciando a execução dos testes: ' 
+          SLACK_MESSAGE: ':loading:'
+          SLACK_FOOTER: Powered By Raquel Vilione
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+  cypress-e2e-tests:
+    needs: install-dependencies
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1]
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install
+        uses: cypress-io/github-action@v5.0.9
+        with:
+          runTests: false
+
+      - name: Cypress e2e tests
+        uses: cypress-io/github-action@v5.0.9
+        with:
+          install: false
+          wait-on: "https://demo.applitools.com/"
+          browser: chrome
+          record: true
+          parallel: true
+          group: 'e2e-tests'
+          env: grepTags="@login"
+          tag: tags
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+
+  cypress-visual-tests:
+    needs: install-dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cypress visual tests
+        uses: cypress-io/github-action@v5.0.9
+        with:
+          wait-on: 'https://demo.applitools.com/'
+          browser: chrome
+          command: npx percy exec -- cypress run --e2e --spec 'cypress/specs/home-page.cy.ts' --config video=false,screenshotOnRunFailure=false --env grepTags=@home-page --record false 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
