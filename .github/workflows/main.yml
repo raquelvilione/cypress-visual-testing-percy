@@ -29,7 +29,6 @@ jobs:
           SLACK_COLOR: '#1e81b0'
           MSG_MINIMAL: event,actions url
           SLACK_TITLE: 'Iniciando a execução dos testes: ' 
-          SLACK_MESSAGE: ':loading:'
           SLACK_FOOTER: Powered By Raquel Vilione
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
