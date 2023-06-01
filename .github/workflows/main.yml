@@ -29,7 +29,7 @@ jobs:
         env:
           SLACK_CHANNEL: qa-visual-testing
           SLACK_USERNAME: cypress-visual-testing-percy
-          SLACK_ICON: https://user-images.githubusercontent.com/121896069/236320145-28426865-acfa-4a98-b926-34989aea1fc2.png
+          SLACK_ICON: https://user-images.githubusercontent.com/15036567/242443132-96f76ea6-33c5-4094-b5b5-070a58ef0bc4.png
           SLACK_COLOR: '#1e81b0'
           MSG_MINIMAL: event,actions url
           SLACK_TITLE: 'Iniciando a execução dos testes: ' 
