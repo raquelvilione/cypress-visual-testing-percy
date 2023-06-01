@@ -19,10 +19,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Write the cypress.env.json file
-        run: |
-          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
-
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         if: always()
@@ -58,6 +54,10 @@ jobs:
         with:
           runTests: false
 
+      - name: Write the cypress.env.json file
+        run: |
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
+
       - name: Cypress e2e tests
         uses: cypress-io/github-action@v5.0.9
         with:
@@ -80,6 +80,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Write the cypress.env.json file
+        run: |
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
 
       - name: Cypress visual tests
         uses: cypress-io/github-action@v5.0.9
