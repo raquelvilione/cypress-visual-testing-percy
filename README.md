@@ -44,3 +44,10 @@ npm run count:by:tags
 
 ## Reports
 After running the tests using the **npm run test:headless** command a .html file is generated in the project folder cypress-visual-testing-percy\cypress\reports\html\index.html
+
+## Snapshots
+![Slack](https://user-images.githubusercontent.com/15036567/242451032-904d0749-d105-43a3-80e9-59c437d6905e.PNG)
+
+![Cypress Cloud](https://user-images.githubusercontent.com/15036567/242450917-7c0660e8-38a8-4b84-b88a-47c21288639c.PNG)
+
+![Percy Cloud](https://user-images.githubusercontent.com/15036567/242451080-ea9194da-5bb6-4017-a7d2-3e516879a428.PNG)
