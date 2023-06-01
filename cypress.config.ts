@@ -30,7 +30,7 @@ export default defineConfig({
             require('cypress-mochawesome-reporter/plugin')(on);
             require('@cypress/grep/src/plugin')(config);
         },
-        baseUrl: 'https://demo.applitools.com/',
+        baseUrl: 'https://demo.applitools.com',
         fixturesFolder: 'cypress/fixtures/',
         specPattern: 'cypress/specs/*.cy.ts',
         screenshotsFolder: 'screenshots/',

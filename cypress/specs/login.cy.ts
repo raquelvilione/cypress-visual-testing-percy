@@ -3,7 +3,7 @@
 import homePage from "pages/home/home.page";
 import loginPage from "../pages/login/login.page";
 
-describe('Login', { tags: ['@staging', '@login'] }, () => {
+describe('Login', { tags: ['@prod', '@login'] }, () => {
     const user = Cypress.env('user')
     const password = Cypress.env('password')
 
